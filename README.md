@@ -1,1 +1,17 @@
-This is the source code for the Sonic 1 TTS remake
+The mess of a source code to the remake that (probably) started it all.
+
+Credits:
+- Project lead
+  - MDTravis (then known as MCTravisYT)
+- Music
+  - MDTravis (then known as MCTravisYT)
+- Project founder
+  - CaioST (then known as Lucaio Super)
+- Artwork
+  - MDTravis (then known as MCTravisYT)
+  - CaioST (then known as Lucaio Super)
+  - SleekFlash-16 (then known as Original Chris)
+  - KatKuriN (then known as JayKuriN)
+  - Miles Tails Power
+  - Marco Mednia (then known as Nek0san) (not a direct contributor)
+  - drx (not a direct contributor)
