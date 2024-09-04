@@ -1,4 +1,4 @@
-The mess of a source code to the remake that (probably) started it all.
+The mess of a source code to the remake that (probably) started it all. Please don't use or modify this for your own projects, for your own sanity and reputation for being original.
 
 Credits:
 - Project lead
