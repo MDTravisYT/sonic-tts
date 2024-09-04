@@ -1,0 +1,27 @@
+
+SN 68k version 2.53
+
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\_INC\PALETTECYCLE.ASM(27) : Warning : Size of pcycle_index ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\_INC\PALETTE POINTERS.ASM(25) : Warning : Size of pal_levels ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\SONIC.ASM(2559) : Warning : Size of musiclist ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\SONIC.ASM(2950) : Warning : Size of colpointers ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\_INC\LEVELSIZELOAD & BGSCROLLSPEED.ASM(72) : Warning : Size of levelsizearray ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\_INC\START LOCATION ARRAY - LEVELS.ASM(35) : Warning : Size of startlocarray ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\_INC\LEVELSIZELOAD & BGSCROLLSPEED.ASM(170) : Warning : Size of looptilenums ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\_INC\LEVELSIZELOAD & BGSCROLLSPEED.ASM(221) : Warning : Size of bgscrollblocksizes ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\_INC\LEVELSIZELOAD & BGSCROLLSPEED.ASM(256) : Warning : Size of bgscroll_index ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\_INC\DEFORMLAYERS.ASM(42) : Warning : Size of deform_index ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\_INC\DYNAMICLEVELEVENTS.ASM(58) : Warning : Size of dle_index ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\_INCOBJ\3A GOT THROUGH CARD.ASM(174) : Warning : Size of levelorder ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\SONIC.ASM(6675) : Warning : Size of musiclist2 ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\_INC\ANIMATELEVELGFX.ASM(26) : Warning : Size of aniart_index ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\_INC\DEBUGLIST.ASM(11) : Warning : Size of debuglist ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\_INC\LEVELHEADERS.ASM(26) : Warning : Size of levelheaders ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\_INC\PATTERN LOAD CUES.ASM(23) : Warning : Size of plc_levels ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\_INC\PATTERN LOAD CUES.ASM(36) : Warning : Size of plc_animals ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\SONIC.ASM(8707) : Warning : Size of level_index ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\SONIC.ASM(8839) : Warning : Size of objpos_index ($6) does not match ZoneCount ($1).
+D:\DISASSEMBLY\BETASONIC IN SONIC 1\TOYSHOW MADNESS\SONIC.ASM(1901) : Warning : Forward reference to redefinable symbol
+
+Assembly completed.
+0 error(s) from 51529 lines in 5.63 seconds

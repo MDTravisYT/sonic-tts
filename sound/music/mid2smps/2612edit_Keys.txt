@@ -1,0 +1,28 @@
+Preview button Keys
+-------------------
+Alt + P		Jump to Preview button and toggle note on/off
+Enter		toggle note on/off
+Mouse		Play note as long as the button is held down
+Space		Play note as long as the key is held down
+Ctrl + Click	Change frequency display between Hz and FNum
+X		Set note height to default (440 Hz modified by Transpose, in Melody mode, Drum Pitch in Drum mode)
+		 Works also if you hold X while clicking on "Preview" or selecting an instrument from the list.
+S		Set note to C
+E		Set note to C#
+D		Set note to D
+R		Set note to D#
+F		Set note to E
+G		Set note to F
+Y/Z		Set note to F#
+H		Set note to G
+U		Set note to G#
+J		Set note to A
+I		Set note to A#
+K		Set note to B
+L		Set note to C (higher octave)
+0-8		Set octave to 0-8
+
+Total Level lists Keys
+----------------------
+Ctrl + N	Normalize Instrument
+Ctrl + P	Adjust Preview Volume (8-16 recommended, low values can cause distortion)

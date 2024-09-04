@@ -1,0 +1,134 @@
+<h1>
+Sonic 1 Special Stage Editor
+</h1>
+
+<p>
+v1.02 by Mercury (<a href="mailto:us.mercurysilver@gmail.com">us.mercurysilver@gmail.com</a>)
+</p>
+
+<h2>
+Change Log
+</h2>
+
+<dl>
+<dt><b>v1.02</b>
+<dd>
+<ul>
+<li>Solved a major bug that prevented changes from being saved when using <a href="http://segaretro.org/Enigma_compression">Enigma compression</a>.
+<li>Added error message when Enigma fails.
+</ul>
+<dt><b>v1.01</b>
+<dd>
+<ul>
+<li>Added Enigma compression capabilities
+<li>Made the Object Palette static.
+<li>Added object id# display
+<li>Fixed a bug with File Option: <b>New</b>.
+</ul>
+</dl>
+
+<h2>
+Introduction
+</h2>
+
+<p>
+<i>Sonic 1 Special Stage Editor</i> is an uncomplicated programme with an uncomplicated purpose: to edit the Special Stage layouts in Sonic the Hedgehog for Sega Genesis / Mega Drive. It is meant to be used complementarily with a split disassembly of the game, rather than directly editing the ROM itself. Multiple split disassemblies of Sonic the Hedgehog can be found at <a href="http://info.sonicretro.org/Disassemblies#Sonic_1">Sonic Retro</a>.
+</p>
+
+<h2>
+Handling Files
+</h2>
+
+<p>
+Special Stage layout files need to be compressed in Enigma format in order to be compiled in a Sonic the Hedghog ROM. Therefore, <i>S1SSE</i> allows you to import and export in Enigma format. When Opening and Saving files, you will be prompted whether or not to decompress / compress the file.
+</p>
+
+<p>
+<i>Note: If you choose to decompress an already uncompressed file, it will fail to load.</i>
+</p>
+
+<h3>
+The File Menu
+</h3>
+
+<dl>
+<dt><b>New</b>
+<dd>Clears the layout so that you can start afresh. If changes have been made to the layout, you will be prompted first.
+<dt><b>Open...</b>
+<dd>Allows you to specify a layout file to load from using the standard Windows open file dialog. The current layout will be lost, so if changes have been made to the layout, you will be prompted first.
+<dt><b>Save</b>
+<dd>Saves the layout file that's being edited. If no file has been specified, it will "Save As..." instead.
+<dt><b>Save As...</b>
+<dd>Allows you to specify a layout file to save to using the standard Windows save file dialog.
+<dt><b>Exit</b>
+<dd>Closes <i>S1SSE</i>. If changes have been made to the layout, you will be prompted first.
+</dl>
+
+<h2>
+Editing
+</h2>
+
+<h3>
+Navigation
+</h3>
+
+<p>
+Use the <b>Cursor Keys</b> to scroll through the layout. Hold <b>Ctrl</b> while doing so to scroll more quickly. <b>Page Up</b> and <b>Page Down</b> jump to the vertical extremes of the layout, while <b>Home</b> and <b>End</b> do the same for the horizontal extremes.
+</p>
+
+<p>
+You may also navigate with the mouse. Hold <b>Ctrl</b>, and click anywhere on the layout to drag it around.
+</p>
+
+<h3>
+Object Placement
+</h3>
+
+<p>
+Use the <b>RMB</b> to delete objects; click and drag to delete many objects without having to re-click. (This will be considered one action, and will be undone as a group.)
+</p>
+
+<p>
+Use the <b>LMB</b> to place objects; click and drag to place many objects without having to re-click. (This will be considered one action, and will be undone as a group.)
+</p>
+
+<p>
+Hold <b>Shift</b> and left-click any object in the layout to aquire its type. It will become the type of object that is placed with the <b>LMB</b>.
+</p>
+
+<h3>
+The Object Palette
+</h3>
+
+<p>
+On the left-hand side of the display is the Object Palette. Use the <b>LMB</b> to choose objects to place in the layout.
+</p>
+
+<p>
+<i>Note: Not all objects in the palette are used in Sonic 1 Special Stages; some of them are depreciated objects or mappings that shouldn't appear in layouts. Unless you know what you are doing, don't place them in your layout!</i>
+</p>
+
+<p>
+At the bottom of the Object Palette, the id of the object the cursor is over is shown.
+</p>
+
+<h3>
+Undo & Redo
+</h3>
+
+<p>
+You can Undo and Redo actions with either the <b>Edit</b> menu or <b>Ctrl+Z</b> and <b>Ctrl+Y</b>. <i>S1SSE</i> stores up to 128 Undo actions!
+</p>
+
+<h2>
+In Closing
+</h2>
+
+<p>
+<ul>
+<li>No credit is required if you use this programme to edit layouts for your hack.
+<li>If you find any bugs, please <a href="mailto:us.mercurysilver@gmail.com">email me</a> about them.
+<li>I used the way cool <a href="http://www.allocated.nl/gmdlls/maxwinapi2/">Max Win Api 2</a> extension to make the menubar for <i>S1SSE</i>.
+<li>In order to include the Enigma capabilities of <i>S1SSE</i>, I used the <a href="">KENS library</a>.
+</ul>
+</p>

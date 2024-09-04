@@ -1,0 +1,40 @@
+ftype		s1
+ver		1.1
+coordtotal	26
+dactotal	7
+;	#	bytes	varSet	type	disp			pan?	jump?	jumpVar	jumpType	comment
+coord	E0	1	b	m	smpsPan			1	0	0	.		Panning: :direction:amsfms	
+coord	E1	1	b	m	smpsAlterNote		0	0	0	.		Alter Notes:value		
+coord	E2	1	b	m	smpsE2			0	0	0	.		E2: :#
+coord	E3	0	.	m	smpsReturn		0	0	0	.		.
+coord	E4	0	.	m	smpsFade		0	0	0	.		.
+coord	E5	1	b	m	smpsChanTempoDiv	0	0	0	.		ChTempo Divider:set
+coord	E6	1	b	m	smpsAlterVol		0	0	0	.		Alter Volume:value
+coord	E7	0	.	e	smpsNoAttack		0	0	0	.		.
+coord	E8	1	b	m	smpsNoteFill		0	0	0	.		Note Fill:duration
+coord	E9	1	b	m	smpsAlterPitch		0	0	0	.		Alter Pitch:value
+coord	EA	1	b	m	smpsSetTempoMod		0	0	0	.		Tempo Modifier:set
+coord	EB	1	b	m	smpsSetTempoDiv		0	0	0	.		Tempo Divider:set
+coord	EC	1	b	m	smpsSetVol		0	0	0	.		Set Volume:value
+coord	ED	0	.	e	smpsED			0	0	0	.		.
+coord	EE	0	.	e	smpsEE			0	0	0	.		.
+coord	EF	1	b	m	smpsFMvoice		0	0	0	.		Set FM Voice:#
+coord	F0	4	bbbb	m	smpsModSet		0	0	0	.		Set Modulation:wait:speed:change:step
+coord	F1	0	.	e	smpsModOn		0	0	0	.		.
+coord	F2	0	.	m	smpsStop		0	0	0	.		.
+coord	F3	1	b	m	smpsPSGform		0	0	0	.		Set PSG WvForm:#
+coord	F4	0	.	e	smpsModOff		0	0	0	.		.
+coord	F5	1	b	m	smpsPSGvoice		0	0	0	.		Set PSG Voice:#
+coord	F6	2	w	m	smpsJump		0	1	0	j		Jump To: :location
+coord	F7	4	bbw	m	smpsLoop		0	1	2	l		Loop To: :index:loops:location
+coord	F8	2	w	m	smpsCall		0	1	0	c		Call At: :location
+coord	F9	0	.	e	smpsF9			0	0	0	.		.
+;	#	disp
+dac	81	dKick
+dac	82	dSnare
+dac	83	dTimpani
+dac	88	dHiTimpani
+dac	89	dMidTimpani
+dac	8A	dLowTimpani
+dac	8B	dVLowTimpani
+eof

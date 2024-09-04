@@ -1,0 +1,75 @@
+Controllers
+-----------
+Hex/Dec	General MIDI		mid2smps
+------------------------------------------------
+00/0	Bank Select MSB		[FM] Select FM instrument bank
+		00-4F - use assigned FM Melody instruments
+		50    - use unmapped FM Melody bank (80 dec)
+		51    - use unmapped FM Drum bank (81 dec)
+		52-7F - use assigned FM Melody instruments
+01/1	Modulation		Modulation On (+Setup)/Off
+		00-07 - disable Modulation
+		08-7F - enable Modulation
+		If no Modulation settings are defined, mid2smps calculates them automatically.
+03/3	[unused]		[PSG] Set PSG Noise Mode
+		00-7E - enable (Noise Mode = E0 | (Value & 07))
+		7F - disable (Noise Mode 00)
+		Note: Noise Disable doesn't work with the default Sonic 1 SMPS driver.
+06/6	Data Entry MSB		[adjust RPN/NRPN settings*]
+07/7	Channel Volume		change channel volume
+09/9	[undefined]		Set Note Stop Timeout (notes get stopped after x frames)
+0A/10	Pan			[FM/DAC] Set Channel Pan
+10/16	General Purpose #1	Modulation Setting 1: initial delay in frames (0 - no delay)
+11/17	General Purpose #2	Modulation Setting 2: Update Speed (0 - auto, 1 = fastest, 2 = 50%, 3 = 33%, etc.)
+12/18	General Purpose #3	Modulation Setting 3: frequency change per step (0 - auto)
+13/19	General Purpose #4	Modulation Setting 4: ramp length (0 - auto, update steps before frequency change is inversed)
+20/32	Bank Select LSB		
+		[FM] Set instrument range for unmapped banks (Bank Select MSB 50/51)
+			00 - use instruments 00..7F
+			01 - use instruments 80..FF
+		[PSG] Set PSG Tone (only for instrument changes >= 50 [81 Square Wave])
+40/64	Damper Pedal (Sustain)	Hold Notes On/Off
+		00-0F - normal
+		10-7F - disable NoteOff events (NoteOn events still retrigger the notes)
+		Note: Useful in combination with Note Fill effects.
+41/65	Portatemento Control	No-Attack-Mode Enable/Disable
+		Forces no-attack-mode for all notes while enabled.
+		00-3F - disable
+		40-7F - enable
+59/89	[undefined]		set Communication Data (SMPS command E2)
+5D/93	Effect 3 Depth (Chorus)	channel volume boost
+		00-3F - increase volume (+00..+3F)
+		40-7F - reduce volume (-40..-01)
+		Volume boost is done in chip volume levels. (see "General Notes")
+		Note: Takes effect with next note OR Channel Volume controller.
+62/98	NRPN LSB		[adjust RPN/NRPN settings*]
+63/99	NRPN MSB		[adjust RPN/NRPN settings*]
+64/100	RPN LSB			[adjust RPN/NRPN settings*]
+65/101	RPN MSB			[adjust RPN/NRPN settings*]
+6F/111	[undefined]		Loop Control
+		00 - Loop Start
+		01 - Loop End
+
+* mid2smps support a few RPN settings. Settings can be adjusted separately for each channel.
+  Adjusting them works as follows:
+  1. select the setting by placing (N)RPN MSB and LSB controllers with the setting IDs
+  2. adjust the setting via Data Entry MSB (Data Entry LSB is currently not supported)
+  
+  Currently supported are:
+  RPN MSB 00, LSB 00: set Pitch-Bend Range (default is 02 = 2 semitones up and down each)
+  RPN MSB 00, LSB 01: set Fine Tuning (default is 40 (hex)/64 (dec). 00 = one semitone down, 7F = one semitone up)
+  RPN MSB 00, LSB 02: set Coarse Tuning/Transposition (default is 40 (hex)/64 (dec), in semitones)
+  
+
+
+General notes:
+- One frame has a length of 1/60 second.
+- Bank Select MSB/LSB controllers only affect the following Instrument Changes and don't have an immediate effect.
+- General Purpose #1..#4 only affect the following Modulation controller and don't have an immediate effect.
+- The FM chip volume levels are 6/8 db steps (+8 halves the volume)
+- The PSG chip volume levels are 6/3 db steps (+3 halves the volume)
+
+
+Viewing notes:
+- Set tab size to 8 for correct view.
+- unless mentioned otherwise, all 2-digit numbers are hexadecimal
