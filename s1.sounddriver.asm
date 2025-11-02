@@ -6,7 +6,7 @@ Go_SoundPriorities:	dc.l SoundPriorities
 ; Go_SoundD0:
 Go_SpecSoundIndex:	dc.l SpecSoundIndex
 Go_MusicIndex:		dc.l MusicIndex
-Go_SoundIndex:		
+Go_SoundIndex:		dc.l SoundIndex
 ; off_719A0:
 Go_SpeedUpIndex:	dc.l SpeedUpIndex
 Go_PSGIndex:		dc.l PSG_Index
@@ -2498,7 +2498,7 @@ Music88:	incbin	"sound/music/Mus89 - Special Stage.bin"
 		even
 Music89:	incbin	"sound/music/Mus8C - Boss.bin"
 		even
-Music8A:	incbin	"sound/music/Mus8A - Title Screen.bin" ; Title Screen
+Music8A:	incbin	"sound/music/Mus8B - Ending.bin" ; Title Screen
 		even
 Music8B:	incbin	"sound/music/Mus8E - Sonic Got Through.bin"
 		even

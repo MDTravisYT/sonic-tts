@@ -73,7 +73,7 @@ ExplosionItem:
 					move.b	#$C,obActWid(a0)
 					move.b	#2,obTimeFrame(a0) ; set frame duration to 7 frames
 					move.b	#4,obFrame(a0)
-				;	sfx	$CD,0,0,0	; play breaking enemy sound
+					sfx	$CD,0,0,0	; play breaking enemy sound
 
 			ExItem_Animate:	; Routine 4 (2 for ExplosionBomb)
 					subq.b	#1,obTimeFrame(a0) ; subtract 1 from frame duration

@@ -39,7 +39,7 @@ Sign_Touch:	; Routine 2
 		cmpi.w	#$20,d0		; is Sonic within $20 pixels of	the signpost?
 		bcc.s	@notouch	; if not, branch
         move.b  #id_Ending,(v_gamemode).w
-	;	music	$A1,0,0,0	; play signpost sound
+		music	$A1,0,0,0	; play signpost sound
 		clr.b	(f_timecount).w	; stop time counter
 		move.w	(v_limitright2).w,(v_limitleft2).w ; lock screen position
 		addq.b	#2,obRoutine(a0)
