@@ -36,7 +36,7 @@ loc_628E:
 ; ---------------------------------------------------------------------------
 ; Offset index for background layer deformation	code
 ; ---------------------------------------------------------------------------
-Deform_Index:	dc.w Deform_LZ-Deform_Index, Deform_GHZ-Deform_Index
+Deform_Index:	dc.w Deform_GHZ-Deform_Index, Deform_LZ-Deform_Index
 		dc.w Deform_MZ-Deform_Index, Deform_SLZ-Deform_Index
 		dc.w Deform_SYZ-Deform_Index, Deform_SBZ-Deform_Index
 		zonewarning Deform_Index,2
@@ -127,11 +127,11 @@ loc_6384:
 Deform_LZ:
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
-		asl.l	#7,d4 ; Comment out for very slow scroll
+		asl.l	#7,d4
 		move.w	($FFFFF73C).w,d5
 		ext.l	d5
 		asl.l	#7,d5
-		bsr.w	ScrollBlock1 ; Comment this out so the background of Green Hill no longer scrolls ~ MCTravisYT
+		bsr.w	ScrollBlock1
 		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(v_hscrolltablebuffer).w,a1
 		move.w	#223,d1

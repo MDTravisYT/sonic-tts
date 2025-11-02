@@ -28,14 +28,14 @@ Sonic_HurtStop:
 		move.w	(v_limitbtm2).w,d0
 		addi.w	#$E0,d0
 		cmp.w	obY(a0),d0
-;		bcs.w	KillSonic
+		bcs.w	KillSonic
 		bsr.w	Sonic_Floor
 		btst	#1,obStatus(a0)
 		bne.s	locret_13860
 		moveq	#0,d0
 		move.w	d0,obVelY(a0)
 		move.w	d0,obVelX(a0)
-;		move.w	d0,obInertia(a0)
+		move.w	d0,obInertia(a0)
 		move.b	#id_Walk,obAnim(a0)
 		subq.b	#2,obRoutine(a0)
 		move.w	#$78,$30(a0)

@@ -29,7 +29,7 @@ ptr_Burnt:	dc.w SonAni_Burnt-Ani_Sonic
 ptr_Drown:	dc.w SonAni_Drown-Ani_Sonic
 ptr_Death:	dc.w SonAni_Death-Ani_Sonic
 ptr_Shrink:	dc.w SonAni_Shrink-Ani_Sonic
-ptr_Hurt:	dc.w SonAni_Walk-Ani_Sonic
+ptr_Hurt:	dc.w SonAni_Hurt-Ani_Sonic
 ptr_WaterSlide:	dc.w SonAni_WaterSlide-Ani_Sonic
 ptr_Null:	dc.w SonAni_Null-Ani_Sonic
 ptr_Float3:	dc.w SonAni_Float3-Ani_Sonic
@@ -84,7 +84,7 @@ SonAni_Burnt:	dc.b $20, fr_burnt, afEnd
 		even
 SonAni_Drown:	dc.b $2F, fr_drown, afEnd
 		even
-SonAni_Death:	dc.b $F,	fr_death, afBack, 1
+SonAni_Death:	dc.b 3,	fr_death, afEnd
 		even
 SonAni_Shrink:	dc.b 3,	fr_shrink1, fr_shrink2, fr_shrink3, fr_shrink4, fr_shrink5, fr_null, afBack, 1
 		even

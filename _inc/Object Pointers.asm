@@ -138,7 +138,7 @@ ptr_BossPlasma:		dc.l BossPlasma
 ptr_EndSonic:		dc.l EndSonic
 ptr_EndChaos:		dc.l EndChaos		; $88
 ptr_EndSTH:		dc.l EndSTH
-;ptr_CreditsText:	dc.l CreditsText
+ptr_CreditsText:	dc.l CreditsText
 ptr_EndEggman:		dc.l EndEggman
 ptr_TryChaos:		dc.l TryChaos
 

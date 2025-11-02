@@ -34,7 +34,7 @@ ESth_Move:	; Routine 2
 		beq.s	ESth_Delay	; if yes, branch
 		addi.w	#$10,obX(a0)	; move object to the right
 		if Revision=0
-;		bra.w	DisplaySprite
+		bra.w	DisplaySprite
 		else
 		rts
 		endc
@@ -55,7 +55,7 @@ ESth_GotoCredits:
 
 	ESth_Wait:
 		if Revision=0
-;		bra.w	DisplaySprite
+		bra.w	DisplaySprite
 		else
 		rts
 		endc

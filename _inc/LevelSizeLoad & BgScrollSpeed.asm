@@ -189,10 +189,10 @@ LevSz_LoadScrollBlockSize:
 ; dword_61B4:
 BGScrollBlockSizes:
 		; GHZ
-		dc.w $800
-		dc.w $100
-		dc.w $100
-		dc.w 0
+		dc.w $70
+		dc.w $100	; I guess these used to be per act?
+		dc.w $100	; Or maybe each scroll block got its own size?
+		dc.w $100	; Either way, these are unused now.
 		; LZ
 		dc.w $800
 		dc.w $100

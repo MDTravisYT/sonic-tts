@@ -1,7 +1,6 @@
 
 SN 68k version 2.53
 
-D:\DISASSEMBLY\BETASONIC IN SONIC 1\SONICTH TTS DEMOS\SONIC.ASM(1929) : Warning : Forward reference to redefinable symbol
 
 Assembly completed.
-0 error(s) from 53389 lines in 0.14 seconds
+0 error(s) from 53519 lines in 10.16 seconds

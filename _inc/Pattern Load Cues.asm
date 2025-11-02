@@ -79,26 +79,26 @@ PLC_GameOver:	dc.w ((PLC_GameOverend-PLC_GameOver-2)/6)-1
 ; Pattern load cues - Green Hill
 ; ---------------------------------------------------------------------------
 PLC_GHZ:	dc.w ((PLC_GHZ2-PLC_GHZ-2)/6)-1
-		plcm	Nem_GHZ, 0		; GHZ main patterns
-	;	plcm	Nem_Stalk, $6B00	; flower stalk
-		plcm	Nem_Burrobot, $94C0	; burrobot enemy
-	;	plcm	Nem_Crabmeat, $8000	; crabmeat enemy
-	;	plcm	Nem_Buzz, $8880		; buzz bomber enemy
-	;	plcm	Nem_Chopper, $8F60	; chopper enemy
-	;	plcm	Nem_Newtron, $9360	; newtron enemy
-	;	plcm	Nem_Motobug, $9E00	; motobug enemy
-	;	plcm	Nem_Spikes, $A360	; spikes
-	;	plcm	Nem_HSpring, $A460	; horizontal spring
-	;	plcm	Nem_VSpring, $A660	; vertical spring
+		plcm	Nem_GHZ_1st, 0		; GHZ main patterns
+		plcm	Nem_GHZ_2nd, $39A0	; GHZ secondary	patterns
+		plcm	Nem_Stalk, $6B00	; flower stalk
+		plcm	Nem_PplRock, $7A00	; purple rock
+		plcm	Nem_Crabmeat, $8000	; crabmeat enemy
+		plcm	Nem_Buzz, $8880		; buzz bomber enemy
+		plcm	Nem_Chopper, $8F60	; chopper enemy
+		plcm	Nem_Newtron, $9360	; newtron enemy
+		plcm	Nem_Motobug, $9E00	; motobug enemy
+		plcm	Nem_Spikes, $A360	; spikes
+		plcm	Nem_HSpring, $A460	; horizontal spring
+		plcm	Nem_VSpring, $A660	; vertical spring
 
 PLC_GHZ2:	dc.w ((PLC_GHZ2end-PLC_GHZ2-2)/6)-1
-;		plcm	Nem_Swing, $7000	; swinging platform
-;		plcm	Nem_Bridge, $71C0	; bridge
-;		plcm	Nem_SpikePole, $7300	; spiked pole
-;		plcm	Nem_Ball, $7540		; giant	ball
-;		plcm	Nem_GhzWall1, $A1E0	; breakable wall
-;		plcm	Nem_GhzWall2, $6980	; normal wall
-		plcm	Nem_PplRock, $6A00	; purple rock
+		plcm	Nem_Swing, $7000	; swinging platform
+		plcm	Nem_Bridge, $71C0	; bridge
+		plcm	Nem_SpikePole, $7300	; spiked pole
+		plcm	Nem_Ball, $7540		; giant	ball
+		plcm	Nem_GhzWall1, $A1E0	; breakable wall
+		plcm	Nem_GhzWall2, $6980	; normal wall
 	PLC_GHZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Labyrinth

@@ -13,23 +13,23 @@ Debug_Index:	dc.w Debug_Main-Debug_Index
 ; ===========================================================================
 
 Debug_Main:	; Routine 0
-;		addq.b	#2,(v_debuguse).w
-;		move.w	(v_limittop2).w,(v_limittopdb).w ; buffer level x-boundary
-;		move.w	(v_limitbtm1).w,(v_limitbtmdb).w ; buffer level y-boundary
-;		move.w	#0,(v_limittop2).w
-;;		move.w	#$720,(v_limitbtm1).w
-	;	andi.w	#$7FF,(v_player+obY).w
-	;	andi.w	#$7FF,(v_screenposy).w
-	;	andi.w	#$3FF,(v_bgscreenposy).w
-	;	move.b	#0,obFrame(a0)
-	;	move.b	#id_Walk,obAnim(a0)
-	;	cmpi.b	#id_Special,(v_gamemode).w ; is game mode $10 (special stage)?
-	;	bne.s	@islevel	; if not, branch
-;
-;		move.w	#0,(v_ssrotate).w ; stop special stage rotating
-;		move.w	#0,(v_ssangle).w ; make	special	stage "upright"
-;		moveq	#6,d0		; use 6th debug	item list
-;		bra.s	@selectlist
+		addq.b	#2,(v_debuguse).w
+		move.w	(v_limittop2).w,(v_limittopdb).w ; buffer level x-boundary
+		move.w	(v_limitbtm1).w,(v_limitbtmdb).w ; buffer level y-boundary
+		move.w	#0,(v_limittop2).w
+		move.w	#$720,(v_limitbtm1).w
+		andi.w	#$7FF,(v_player+obY).w
+		andi.w	#$7FF,(v_screenposy).w
+		andi.w	#$3FF,(v_bgscreenposy).w
+		move.b	#0,obFrame(a0)
+		move.b	#id_Walk,obAnim(a0)
+		cmpi.b	#id_Special,(v_gamemode).w ; is game mode $10 (special stage)?
+		bne.s	@islevel	; if not, branch
+
+		move.w	#0,(v_ssrotate).w ; stop special stage rotating
+		move.w	#0,(v_ssangle).w ; make	special	stage "upright"
+		moveq	#6,d0		; use 6th debug	item list
+		bra.s	@selectlist
 ; ===========================================================================
 
 @islevel:

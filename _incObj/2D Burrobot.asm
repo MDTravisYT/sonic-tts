@@ -47,7 +47,7 @@ Burro_Action:	; Routine 2
 		bpl.s	@nochg
 		addq.b	#2,ob2ndRout(a0)
 		move.w	#255,burro_timedelay(a0)
-		move.w	#$40,obVelX(a0)
+		move.w	#$80,obVelX(a0)
 		move.b	#1,obAnim(a0)
 		bchg	#0,obStatus(a0)	; change direction the Burrobot	is facing
 		beq.s	@nochg
@@ -125,8 +125,7 @@ Burro_ChkSonic:
 		move.w	(v_player+obY).w,d0
 		sub.w	obY(a0),d0
 		bcc.s	locret_AE20
-		cmpi.w	#-$40,d0
-		move.b	#4,obAnim(a0)
+		cmpi.w	#-$80,d0
 		bcs.s	locret_AE20
 		tst.w	(v_debuguse).w
 		bne.s	locret_AE20
@@ -141,7 +140,7 @@ locret_AE20:
 
 
 Burro_ChkSonic2:
-		move.w	#$40,d1
+		move.w	#$80,d1
 		bset	#0,obStatus(a0)
 		move.w	(v_player+obX).w,d0
 		sub.w	obX(a0),d0

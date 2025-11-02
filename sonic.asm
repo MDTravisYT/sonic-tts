@@ -106,9 +106,8 @@ loc_E0:
 		dc.l ErrorTrap
 		dc.l ErrorTrap
 	endif
-Hack_Credits:	dc.b "Hack created by Lucaio Super and MCTravisYT     "
 Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
-Date:		dc.b "(C)SEGA 1990.JUN" ; Copyright holder and release date (generally year)
+Date:		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
 Title_Local:	dc.b "SONIC THE               HEDGEHOG                " ; Domestic name
 Title_Int:	dc.b "SONIC THE               HEDGEHOG                " ; International name
 Serial:		if Revision=0
@@ -304,7 +303,7 @@ CheckSumCheck:
 		bhs.s	@loop
 		movea.l	#Checksum,a1	; read the checksum
 		cmp.w	(a1),d1		; compare checksum in header to ROM
-;		bne.w	CheckSumError	; if they don't match, branch
+		bne.w	CheckSumError	; if they don't match, branch
 
 	CheckSumOk:
 		lea	($FFFFFE00).w,a6
@@ -376,6 +375,53 @@ CheckSumError:
 		bra.s	@endlessloop
 ; ===========================================================================
 
+BusError:
+		move.b	#2,(v_errortype).w
+		bra.s	loc_43A
+
+AddressError:
+		move.b	#4,(v_errortype).w
+		bra.s	loc_43A
+
+IllegalInstr:
+		move.b	#6,(v_errortype).w
+		addq.l	#2,2(sp)
+		bra.s	loc_462
+
+ZeroDivide:
+		move.b	#8,(v_errortype).w
+		bra.s	loc_462
+
+ChkInstr:
+		move.b	#$A,(v_errortype).w
+		bra.s	loc_462
+
+TrapvInstr:
+		move.b	#$C,(v_errortype).w
+		bra.s	loc_462
+
+PrivilegeViol:
+		move.b	#$E,(v_errortype).w
+		bra.s	loc_462
+
+Trace:
+		move.b	#$10,(v_errortype).w
+		bra.s	loc_462
+
+Line1010Emu:
+		move.b	#$12,(v_errortype).w
+		addq.l	#2,2(sp)
+		bra.s	loc_462
+
+Line1111Emu:
+		move.b	#$14,(v_errortype).w
+		addq.l	#2,2(sp)
+		bra.s	loc_462
+
+ErrorExcept:
+		move.b	#0,(v_errortype).w
+		bra.s	loc_462
+; ===========================================================================
 
 loc_43A:
 		disable_ints
@@ -1726,7 +1772,95 @@ WhiteOut_AddColour:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-; This used to be the sega logo palette cycle. Now commented out because it's no longer needed! ~ MCTravisYT
+PalCycle_Sega:
+		tst.b	(v_pcyc_time+1).w
+		bne.s	loc_206A
+		lea	(v_pal_dry+$20).w,a1
+		lea	(Pal_Sega1).l,a0
+		moveq	#5,d1
+		move.w	(v_pcyc_num).w,d0
+
+loc_2020:
+		bpl.s	loc_202A
+		addq.w	#2,a0
+		subq.w	#1,d1
+		addq.w	#2,d0
+		bra.s	loc_2020
+; ===========================================================================
+
+loc_202A:
+		move.w	d0,d2
+		andi.w	#$1E,d2
+		bne.s	loc_2034
+		addq.w	#2,d0
+
+loc_2034:
+		cmpi.w	#$60,d0
+		bhs.s	loc_203E
+		move.w	(a0)+,(a1,d0.w)
+
+loc_203E:
+		addq.w	#2,d0
+		dbf	d1,loc_202A
+
+		move.w	(v_pcyc_num).w,d0
+		addq.w	#2,d0
+		move.w	d0,d2
+		andi.w	#$1E,d2
+		bne.s	loc_2054
+		addq.w	#2,d0
+
+loc_2054:
+		cmpi.w	#$64,d0
+		blt.s	loc_2062
+		move.w	#$401,(v_pcyc_time).w
+		moveq	#-$C,d0
+
+loc_2062:
+		move.w	d0,(v_pcyc_num).w
+		moveq	#1,d0
+		rts	
+; ===========================================================================
+
+loc_206A:
+		subq.b	#1,(v_pcyc_time).w
+		bpl.s	loc_20BC
+		move.b	#4,(v_pcyc_time).w
+		move.w	(v_pcyc_num).w,d0
+		addi.w	#$C,d0
+		cmpi.w	#$30,d0
+		blo.s	loc_2088
+		moveq	#0,d0
+		rts	
+; ===========================================================================
+
+loc_2088:
+		move.w	d0,(v_pcyc_num).w
+		lea	(Pal_Sega2).l,a0
+		lea	(a0,d0.w),a0
+		lea	(v_pal_dry+$04).w,a1
+		move.l	(a0)+,(a1)+
+		move.l	(a0)+,(a1)+
+		move.w	(a0)+,(a1)
+		lea	(v_pal_dry+$20).w,a1
+		moveq	#0,d0
+		moveq	#$2C,d1
+
+loc_20A8:
+		move.w	d0,d2
+		andi.w	#$1E,d2
+		bne.s	loc_20B2
+		addq.w	#2,d0
+
+loc_20B2:
+		move.w	(a0),(a1,d0.w)
+		addq.w	#2,d0
+		dbf	d1,loc_20A8
+
+loc_20BC:
+		moveq	#1,d0
+		rts	
+; End of function PalCycle_Sega
 
 ; ===========================================================================
 
@@ -1868,84 +2002,74 @@ WaitForVBla:
 ; ---------------------------------------------------------------------------
 ; Sega screen
 ; ---------------------------------------------------------------------------
- 
+
 GM_Sega:
-        bsr.w   ClearPLC
-        bsr.w   PaletteFadeOut
-        lea ($C00004).l,a6
-        move.w  #$8004,(a6)
-        move.w  #$8200+(vram_fg>>10),(a6)   ; set foreground nametable address
-        move.w  #$8400+(vram_bg>>13),(a6)   ; set background nametable address
-        move.w  #$8700,(a6)         ; set background colour (palette entry 0)
-        move.w  #$8B00,(a6)         ; full-screen vertical scrolling
-        move.w  #$8134,(a6)         ; disable display
-        clr.b   (f_wtr_state).w
-        move    #$2700,sr
-        bsr.w   ClearScreen
-        locVRAM $20
-        lea (Nem_SegaLogo).l,a0     ; load Sega logo patterns on tile #1
-        bsr.w   NemDec
-        lea ($FF0000).l,a1
-        lea (Eni_SegaLogo).l,a0     ; load Sega logo mappings
-        moveq   #1,d0               ; start from tile #1
-        bsr.w   EniDec
-        copyTilemap $FF0000,(vram_bg+$61E),((96/8)-1),((32/8)-1)
-        sfx bgm_Continue,0,1,1          ; fade out music
- 
-   ;     tst.b   (v_megadrive).w         ; is console Japanese?
-  ;      bpl.s   @jmp0               ; if yes, branch
-        locVRAM (vram_fg+$634),4(a6)        ; set position to write to..
- ;       move.l  #$00310032,(a6)         ; and write "TM"
-@jmp0:      move.w  #$EEE,v_pal_dry+$02+$80
-        move.w  #-2,v_pcyc_num          ; minus size of an entry
-        move.w  #1,(v_pcyc_time).w
- 
-        lea v_pal_dry+$04+$80,a1
-        bsr Palcycle_Sega
-        move.w  #$8174,$C00004          ; enable display
-        bsr.w   PaletteFadeIn
-;        sfx sfx_Sega,0,1,1          ; play "SEGA" sound
-        move.w  #3*60,(v_demolength).w      ; stay for 3 seconds
- 
+		sfx	bgm_Stop,0,1,1 ; stop music
+		bsr.w	ClearPLC
+		bsr.w	PaletteFadeOut
+		lea	(vdp_control_port).l,a6
+		move.w	#$8004,(a6)	; use 8-colour mode
+		move.w	#$8200+(vram_fg>>10),(a6) ; set foreground nametable address
+		move.w	#$8400+(vram_bg>>13),(a6) ; set background nametable address
+		move.w	#$8700,(a6)	; set background colour (palette entry 0)
+		move.w	#$8B00,(a6)	; full-screen vertical scrolling
+		clr.b	(f_wtr_state).w
+		disable_ints
+		move.w	(v_vdp_buffer1).w,d0
+		andi.b	#$BF,d0
+		move.w	d0,(vdp_control_port).l
+		bsr.w	ClearScreen
+		locVRAM	0
+		lea	(Nem_SegaLogo).l,a0 ; load Sega	logo patterns
+		bsr.w	NemDec
+		lea	($FF0000).l,a1
+		lea	(Eni_SegaLogo).l,a0 ; load Sega	logo mappings
+		move.w	#0,d0
+		bsr.w	EniDec
+
+		copyTilemap	$FF0000,$E510,$17,7
+		copyTilemap	$FF0180,$C000,$27,$1B
+
+		if Revision=0
+		else
+			tst.b   (v_megadrive).w	; is console Japanese?
+			bmi.s   @loadpal
+			copyTilemap	$FF0A40,$C53A,2,1 ; hide "TM" with a white rectangle
+		endc
+
+	@loadpal:
+		moveq	#palid_SegaBG,d0
+		bsr.w	PalLoad2	; load Sega logo palette
+		move.w	#-$A,(v_pcyc_num).w
+		move.w	#0,(v_pcyc_time).w
+		move.w	#0,(v_pal_buffer+$12).w
+		move.w	#0,(v_pal_buffer+$10).w
+		move.w	(v_vdp_buffer1).w,d0
+		ori.b	#$40,d0
+		move.w	d0,(vdp_control_port).l
+
+Sega_WaitPal:
+		move.b	#2,(v_vbla_routine).w
+		bsr.w	WaitForVBla
+		bsr.w	PalCycle_Sega
+		bne.s	Sega_WaitPal
+
+		sfx	sfx_Sega,0,1,1	; play "SEGA" sound
+		move.b	#$14,(v_vbla_routine).w
+		bsr.w	WaitForVBla
+		move.w	#$1E,(v_demolength).w
+
 Sega_WaitEnd:
-        move.b  #2,(v_vbla_routine).w
-        bsr.w   WaitForVBla
-        lea v_pal_dry+$04,a1
-        bsr Palcycle_Sega
-        tst.w   (v_demolength).w
-        beq.s   Sega_GotoTitle
-        andi.b  #btnStart,(v_jpadpress1).w  ; is Start button pressed?
-        beq.s   Sega_WaitEnd            ; if not, branch
- 
+		move.b	#2,(v_vbla_routine).w
+		bsr.w	WaitForVBla
+		tst.w	(v_demolength).w
+		beq.s	Sega_GotoTitle
+		andi.b	#btnStart,(v_jpadpress1).w ; is Start button pressed?
+		beq.s	Sega_WaitEnd	; if not, branch
+
 Sega_GotoTitle:
-        move.b  #id_Title,(v_gamemode).w
-        rts
- 
-Palcycle_Sega:
-        subq.w  #1,v_pcyc_time
-        bne.s   @return
-        move.w  #3,v_pcyc_time
-        addq.w  #2,v_pcyc_num
-        cmpi.w  #@cycle_size,v_pcyc_num     ; past cycle's size?
-        bne.s   @jmp0               ; if not, branch
-        move.w  #0,v_pcyc_num           ; if yes, reset
-@jmp0:      move.w  v_pcyc_num,d0
-        lea @cycle(pc,d0.w),a0
-        rept    4               ; repeat next line 4 times      ; --> transfer 9 colors in total
-            move.l  (a0)+,(a1)+     ; copy 2 colors and increment pointers
-        endr
-        move.w  (a0),(a1)           ; copy last color
-@return:    rts
- 
-@cycle:     dc.w    $EC0
-        dc.w    $EA0, $E80, $E60, $E40, $E20, $E00
-        dc.w    $C00
-        dc.w    $E00, $E20, $E40, $E60, $E80, $EA0
-@cycle_end: ; remaining half copy before loop. Making it CPU-friendly
-        dc.w    $EC0
-        dc.w    $EA0, $E80, $E60, $E40, $E20, $E00
-        dc.w    $C00
-@cycle_size:=   @cycle_end-@cycle
+		move.b	#id_Title,(v_gamemode).w ; go to title screen
+		rts	
 ; ===========================================================================
 
 ; ---------------------------------------------------------------------------
@@ -1953,9 +2077,9 @@ Palcycle_Sega:
 ; ---------------------------------------------------------------------------
 
 GM_Title:
-;		sfx	bgm_Stop,0,1,1 ; stop music
+		sfx	bgm_Stop,0,1,1 ; stop music
 		bsr.w	ClearPLC
-;		bsr.w	PaletteFadeOut
+		bsr.w	PaletteFadeOut
 		disable_ints
 		bsr.w	SoundDriverLoad
 		lea	(vdp_control_port).l,a6
@@ -1977,16 +2101,16 @@ GM_Title:
 		move.l	d0,(a1)+
 		dbf	d1,Tit_ClrObj1	; fill object space ($D000-$EFFF) with 0
 
-;		locVRAM	0
-;		lea	(Nem_JapNames).l,a0 ; load Japanese credits
-;		bsr.w	NemDec
-;		locVRAM	$14C0
-;		lea	(Nem_CreditText).l,a0 ;	load alphabet
-;		bsr.w	NemDec
-;		lea	($FF0000).l,a1
-;		lea	(Eni_JapNames).l,a0 ; load mappings for	Japanese credits
-;		move.w	#0,d0
-;		bsr.w	EniDec
+		locVRAM	0
+		lea	(Nem_JapNames).l,a0 ; load Japanese credits
+		bsr.w	NemDec
+		locVRAM	$14C0
+		lea	(Nem_CreditText).l,a0 ;	load alphabet
+		bsr.w	NemDec
+		lea	($FF0000).l,a1
+		lea	(Eni_JapNames).l,a0 ; load mappings for	Japanese credits
+		move.w	#0,d0
+		bsr.w	EniDec
 
 		copyTilemap	$FF0000,$C000,$27,$1B
 
@@ -1996,15 +2120,14 @@ GM_Title:
 
 	Tit_ClrPal:
 		move.l	d0,(a1)+
-;		dbf	d1,Tit_ClrPal	; fill palette with 0 (black)
+		dbf	d1,Tit_ClrPal	; fill palette with 0 (black)
 
-;		moveq	#palid_Sonic,d0	; load Sonic's palette
-;		bsr.w	PalLoad1
-		bsr.w	ClearScreen
-;		move.b	#id_CreditsText,(v_objspace+$80).w ; load "SONIC TEAM PRESENTS" object
+		moveq	#palid_Sonic,d0	; load Sonic's palette
+		bsr.w	PalLoad1
+		move.b	#id_CreditsText,(v_objspace+$80).w ; load "SONIC TEAM PRESENTS" object
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
-;		bsr.w	PaletteFadeIn
+		bsr.w	PaletteFadeIn
 		disable_ints
 		locVRAM	$4000
 		lea	(Nem_TitleFg).l,a0 ; load title	screen patterns
@@ -2026,17 +2149,17 @@ GM_Title:
 
 		move.b	#0,(v_lastlamp).w ; clear lamppost counter
 		move.w	#0,(v_debuguse).w ; disable debug item placement mode
-;		move.w	#0,(f_demo).w	; disable debug mode
+		move.w	#0,(f_demo).w	; disable debug mode
 		move.w	#0,($FFFFFFEA).w ; unused variable
-;		move.w	#(id_EndZ<<8),(v_zone).w	; set level to GHZ (00)
+		move.w	#(id_GHZ<<8),(v_zone).w	; set level to GHZ (00)
 		move.w	#0,(v_pcyc_time).w ; disable palette cycling
 		bsr.w	LevelSizeLoad
 		bsr.w	DeformLayers
 		lea	(v_16x16).w,a1
-		lea	(Blk16_LZ).l,a0 ; load	GHZ 16x16 mappings
+		lea	(Blk16_GHZ).l,a0 ; load	GHZ 16x16 mappings
 		move.w	#0,d0
 		bsr.w	EniDec
-		lea	(Blk256_LZ).l,a0 ; load GHZ 256x256 mappings
+		lea	(Blk256_GHZ).l,a0 ; load GHZ 256x256 mappings
 		lea	(v_256x256).l,a1
 		bsr.w	KosDec
 		bsr.w	LevelLayoutLoad
@@ -2061,9 +2184,9 @@ GM_Title:
 		bsr.w	NemDec
 		moveq	#palid_Title,d0	; load title screen palette
 		bsr.w	PalLoad1
-		sfx	bgm_Ending,0,1,1	; play title screen music
-;		move.b	#0,(f_debugmode).w ; disable debug mode
-		move.w	#$FFFF,(v_demolength).w ; run title screen for $178 frames
+		sfx	bgm_Title,0,1,1	; play title screen music
+		move.b	#0,(f_debugmode).w ; disable debug mode
+		move.w	#$178,(v_demolength).w ; run title screen for $178 frames
 		lea	(v_objspace+$80).w,a1
 		moveq	#0,d0
 		move.w	#7,d1
@@ -2108,7 +2231,7 @@ Tit_MainLoop:
 		bsr.w	RunPLC
 		move.w	(v_objspace+obX).w,d0
 		addq.w	#2,d0
-;		move.w	d0,(v_objspace+obX).w ; move Sonic to the right
+		move.w	d0,(v_objspace+obX).w ; move Sonic to the right
 		cmpi.w	#$1C00,d0	; has Sonic object passed $1C00 on x-axis?
 		blo.s	Tit_ChkRegion	; if not, branch
 
@@ -2204,27 +2327,25 @@ Tit_ChkLevSel:
 ; ---------------------------------------------------------------------------
 
 LevelSelect:
-		move.b	#id_Special,(v_gamemode).w ; Go to bonus stage
-;		sfx	$94,0,1,1	; Crash the game on the level select ~ MCTravisYT
-;		move.b	#4,(v_vbla_routine).w
-;		bsr.w	WaitForVBla
-;		bsr.w	LevSelControls
-;		bsr.w	RunPLC
-;		tst.l	(v_plc_buffer).w
-;		bne.s	LevelSelect
-;		andi.b	#btnABC+btnStart,(v_jpadpress1).w ; is A, B, C, or Start pressed?
-;		beq.s	LevelSelect	; if not, branch
-;		move.w	(v_levselitem).w,d0
-;		cmpi.w	#$14,d0		; have you selected item $14 (sound test)?
-;		bne.s	LevSel_Level_SS	; if not, go to	Level/SS subroutine
-;		move.w	(v_levselsound).w,d0
-;		addi.w	#$80,d0
-;		tst.b	(f_creditscheat).w ; is Japanese Credits cheat on?
-;		beq.s	LevSel_NoCheat	; if not, branch
-;		cmpi.w	#$9F,d0		; is sound $9F being played?
-;		beq.s	LevSel_Ending	; if yes, branch
-;		cmpi.w	#$9E,d0		; is sound $9E being played?
-;		beq.s	LevSel_Credits	; if yes, branch
+		move.b	#4,(v_vbla_routine).w
+		bsr.w	WaitForVBla
+		bsr.w	LevSelControls
+		bsr.w	RunPLC
+		tst.l	(v_plc_buffer).w
+		bne.s	LevelSelect
+		andi.b	#btnABC+btnStart,(v_jpadpress1).w ; is A, B, C, or Start pressed?
+		beq.s	LevelSelect	; if not, branch
+		move.w	(v_levselitem).w,d0
+		cmpi.w	#$14,d0		; have you selected item $14 (sound test)?
+		bne.s	LevSel_Level_SS	; if not, go to	Level/SS subroutine
+		move.w	(v_levselsound).w,d0
+		addi.w	#$80,d0
+		tst.b	(f_creditscheat).w ; is Japanese Credits cheat on?
+		beq.s	LevSel_NoCheat	; if not, branch
+		cmpi.w	#$9F,d0		; is sound $9F being played?
+		beq.s	LevSel_Ending	; if yes, branch
+		cmpi.w	#$9E,d0		; is sound $9E being played?
+		beq.s	LevSel_Credits	; if yes, branch
 
 LevSel_NoCheat:
 		; This is a workaround for a bug, see Sound_ChkValue for more.
@@ -2593,7 +2714,7 @@ LevSel_ChgLine:
 ; Level	select menu text
 ; ---------------------------------------------------------------------------
 LevelMenuText:	if Revision=0
-		incbin	"misc\menutext.bin" ; NICE TRY LOL ~ MCTravisYT
+		incbin	"misc\Level Select Text.bin"
 		else
 		incbin	"misc\Level Select Text (JP1).bin"
 		endc
@@ -2745,7 +2866,7 @@ Level_GetBgm:
 		lea	(MusicList).l,a1 ; load	music playlist
 		move.b	(a1,d0.w),d0
 		bsr.w	PlaySound	; play music
-;		move.b	#id_TitleCard,(v_objspace+$80).w ; load title card object
+		move.b	#id_TitleCard,(v_objspace+$80).w ; load title card object
 
 Level_TtlCardLoop:
 		move.b	#$C,(v_vbla_routine).w
@@ -2777,10 +2898,10 @@ Level_TtlCardLoop:
 		move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
 
 Level_ChkDebug:
-;		tst.b	(f_debugcheat).w ; has debug cheat been entered?
-;		beq.s	Level_ChkWater	; if not, branch
-;		btst	#bitA,(v_jpadhold1).w ; is A button held?
-;		beq.s	Level_ChkWater	; if not, branch
+		tst.b	(f_debugcheat).w ; has debug cheat been entered?
+		beq.s	Level_ChkWater	; if not, branch
+		btst	#bitA,(v_jpadhold1).w ; is A button held?
+		beq.s	Level_ChkWater	; if not, branch
 		move.b	#1,(f_debugmode).w ; enable debug mode
 
 Level_ChkWater:
@@ -3966,7 +4087,7 @@ GM_Credits:
 
 		moveq	#palid_Sonic,d0
 		bsr.w	PalLoad1	; load Sonic's palette
-;		move.b	#id_CreditsText,(v_objspace+$80).w ; load credits object
+		move.b	#id_CreditsText,(v_objspace+$80).w ; load credits object
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		bsr.w	EndingDemoLoad
@@ -4305,7 +4426,7 @@ loc_698E:
 		moveq	#-16,d5
 		move.w	(v_scroll_block_1_size).w,d6
 		move.w	4(a3),d1
-;		andi.w	#-16,d1		; Floor camera Y coordinate to the nearest block
+		andi.w	#-16,d1		; Floor camera Y coordinate to the nearest block
 		sub.w	d1,d6
 		blt.s	loc_69BE	; If scroll block 1 is offscreen, skip loading its tiles
 		lsr.w	#4,d6		; Get number of rows not above the screen
@@ -6776,9 +6897,9 @@ Map_WFall	include	"_maps\Waterfalls.asm"
 ; ---------------------------------------------------------------------------
 
 SonicPlayer:
-;		tst.w	(v_debuguse).w	; is debug mode	being used?
-;		beq.s	Sonic_Normal	; if not, branch
-;		jmp	(DebugMode).l
+		tst.w	(v_debuguse).w	; is debug mode	being used?
+		beq.s	Sonic_Normal	; if not, branch
+		jmp	(DebugMode).l
 ; ===========================================================================
 
 Sonic_Normal:
@@ -6808,13 +6929,13 @@ Sonic_Main:	; Routine 0
 		move.w	#$80,(v_sonspeeddec).w ; Sonic's deceleration
 
 Sonic_Control:	; Routine 2
-;		tst.w	(f_debugmode).w	; is debug cheat enabled?
-;		beq.s	loc_12C58	; if not, branch
-;		btst	#bitB,(v_jpadpress1).w ; is button B pressed?
-;		beq.s	loc_12C58	; if not, branch
-;		move.w	#1,(v_debuguse).w ; change Sonic into a ring/item
-;		clr.b	(f_lockctrl).w
-;		rts	
+		tst.w	(f_debugmode).w	; is debug cheat enabled?
+		beq.s	loc_12C58	; if not, branch
+		btst	#bitB,(v_jpadpress1).w ; is button B pressed?
+		beq.s	loc_12C58	; if not, branch
+		move.w	#1,(v_debuguse).w ; change Sonic into a ring/item
+		clr.b	(f_lockctrl).w
+		rts	
 ; ===========================================================================
 
 loc_12C58:
@@ -7591,8 +7712,8 @@ Map_Lamp:	include	"_maps\Lamppost.asm"
 		include	"_incObj\7D Hidden Bonuses.asm"
 Map_Bonus:	include	"_maps\Hidden Bonuses.asm"
 
-;		include	"_incObj\8A Credits.asm"
-;Map_Cred:	include	"_maps\Credits.asm"
+		include	"_incObj\8A Credits.asm"
+Map_Cred:	include	"_maps\Credits.asm"
 
 		include	"_incObj\3D Boss - Green Hill (part 1).asm"
 
@@ -8727,11 +8848,9 @@ Nem_Squirrel:	incbin	"artnem\Animal Squirrel.bin"
 ; ---------------------------------------------------------------------------
 Blk16_GHZ:	incbin	"map16\GHZ.bin"
 		even
-Nem_GHZ:	incbin	"artnem\8x8 - GHZ.bin"	; GHZ primary patterns
+Nem_GHZ_1st:	incbin	"artnem\8x8 - GHZ1.bin"	; GHZ primary patterns
 		even
-Nem_GHZ_1st:	incbin	"artnem\8x8 - GHZ1.bin"	; Title Screen and Ending only
-		even
-Nem_GHZ_2nd:	incbin	"artnem\8x8 - GHZ2.bin"	; Title Screen and Ending only
+Nem_GHZ_2nd:	incbin	"artnem\8x8 - GHZ2.bin"	; GHZ secondary patterns
 		even
 Blk256_GHZ:	incbin	"map256\GHZ.bin"
 		even
@@ -9160,67 +9279,6 @@ SoundDriver:	include "s1.sounddriver.asm"
 
 ; end of 'ROM'
 		even
-; ===============================================================
-; ---------------------------------------------------------------
-; Error handling module
-; ---------------------------------------------------------------
- 
-BusError:   jsr ErrorHandler(pc)
-        dc.b    "BUS ERROR",0           ; text
-        dc.b    1               ; extended stack frame
-        even
- 
-AddressError:   jsr ErrorHandler(pc)
-        dc.b    "ADDRESS ERROR",0       ; text
-        dc.b    1               ; extended stack frame
-        even
- 
-IllegalInstr:   jsr ErrorHandler(pc)
-        dc.b    "ILLEGAL INSTRUCTION",0     ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-ZeroDivide: jsr ErrorHandler(pc)
-        dc.b    "ZERO DIVIDE",0         ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-ChkInstr:   jsr ErrorHandler(pc)
-        dc.b    "CHK INSTRUCTION",0         ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-TrapvInstr: jsr ErrorHandler(pc)
-        dc.b    "TRAPV INSTRUCTION",0       ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-PrivilegeViol:  jsr ErrorHandler(pc)
-        dc.b    "PRIVILEGE VIOLATION",0     ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-Trace:      jsr ErrorHandler(pc)
-        dc.b    "TRACE",0           ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-Line1010Emu:    jsr ErrorHandler(pc)
-        dc.b    "LINE 1010 EMULATOR",0      ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-Line1111Emu:    jsr ErrorHandler(pc)
-        dc.b    "LINE 1111 EMULATOR",0      ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-ErrorExcept:    jsr ErrorHandler(pc)
-        dc.b    "ERROR EXCEPTION",0         ; text
-        dc.b    0               ; extended stack frame
-        even
- 
-ErrorHandler:   incbin  "ErrorHandler.bin"
 EndOfRom:
 
 

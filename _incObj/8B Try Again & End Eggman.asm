@@ -29,7 +29,7 @@ EEgg_Main:	; Routine 0
 		cmpi.b	#6,(v_emeralds).w ; do you have all 6 emeralds?
 		beq.s	EEgg_Animate	; if yes, branch
 
-;		move.b	#id_CreditsText,(v_objspace+$C0).w ; load credits object
+		move.b	#id_CreditsText,(v_objspace+$C0).w ; load credits object
 		move.w	#9,(v_creditsnum).w ; use "TRY AGAIN" text
 		move.b	#id_TryChaos,(v_objspace+$800).w ; load emeralds object on "TRY AGAIN" screen
 		move.b	#0,obAnim(a0)	; use "TRY AGAIN" animation
