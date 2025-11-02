@@ -129,7 +129,7 @@ SRAMSupport:	if EnableSRAM=1
 		endc
 		dc.l $20202020		; SRAM start ($200001)
 		dc.l $20202020		; SRAM end ($20xxxx)
-Notes:		dc.b "Sonic 1 TTS Remake v0.6.2 By MCTravisYT & CaioST    " ; Notes (unused, anything can be put in this space, but it has to be 52 bytes.)
+Notes:		dc.b "Sonic the Hedgehog Tokyo Toy Show Remake V0.06      " ; Notes (unused, anything can be put in this space, but it has to be 52 bytes.)
 Region:		dc.b "J               " ; Region (Country code)
 EndOfHeader:
 
@@ -1858,7 +1858,7 @@ GM_Sega:
         lea (Eni_SegaLogo).l,a0     ; load Sega logo mappings
         moveq   #1,d0               ; start from tile #1
         bsr.w   EniDec
-        copyTilemap $FF0000,(vram_bg+$61E),((96/8)-1),((48/8)-1)
+        copyTilemap $FF0000,(vram_bg+$61E),((96/8)-1),((32/8)-1)
 ;        sfx $87,0,1,1          ; fade out music
  
 ;        tst.b   (v_megadrive).w         ; is console Japanese?
@@ -2119,7 +2119,7 @@ Tit_EnterCheat:
 
 	Tit_PlayRing:
 		move.b	#1,(a0,d1.w)	; activate cheat
-	;	sfx	sfx_Ring,0,1,1	; play ring sound when code is entered
+		sfx	sfx_Ring,0,1,1	; play ring sound when code is entered
 		bra.s	Tit_CountC
 ; ===========================================================================
 
@@ -9016,7 +9016,7 @@ ErrorExcept:    jsr ErrorHandler(pc)
         dc.b    0               ; extended stack frame
         even
  
-ErrorHandler:   ;incbin  "ErrorHandler.bin"
+ErrorHandler:   incbin  "ErrorHandler.bin"
 EndOfRom:
 
 
