@@ -26,10 +26,10 @@ sparkle_id:	equ $34		; counter to keep track of sparkles
 
 Sign_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
-;		move.l	#Map_Sign,obMap(a0)
-;		move.w	#$680,obGfx(a0)
-;		move.b	#4,obRender(a0)
-;		move.b	#$18,obActWid(a0)
+		move.l	#Map_Sign,obMap(a0)
+		move.w	#$680,obGfx(a0)
+		move.b	#4,obRender(a0)
+		move.b	#$18,obActWid(a0)
 		move.b	#4,obPriority(a0)
 
 Sign_Touch:	; Routine 2
@@ -38,8 +38,7 @@ Sign_Touch:	; Routine 2
 		bcs.s	@notouch
 		cmpi.w	#$20,d0		; is Sonic within $20 pixels of	the signpost?
 		bcc.s	@notouch	; if not, branch
-        move.b  #id_Ending,(v_gamemode).w
-		music	$A1,0,0,0	; play signpost sound
+		music	sfx_Signpost,0,0,0	; play signpost sound
 		clr.b	(f_timecount).w	; stop time counter
 		move.w	(v_limitright2).w,(v_limitleft2).w ; lock screen position
 		addq.b	#2,obRoutine(a0)
@@ -98,7 +97,6 @@ Sign_SparkPos:	dc.b -$18,-$10		; x-position, y-position
 ; ===========================================================================
 
 Sign_SonicRun:	; Routine 6
-        move.b  #id_Ending,(v_gamemode).w
 		tst.w	(v_debuguse).w	; is debug mode	on?
 		bne.w	locret_ECEE	; if yes, branch
 		btst	#1,(v_player+obStatus).w

@@ -71,14 +71,13 @@ GameOver:
 		subq.b	#1,(v_lives).w	; subtract 1 from number of lives
 		bne.s	loc_138D4
 		move.w	#0,$3A(a0)
-		move.b	#id_Continue,(v_gamemode).w ; set mode to $14 (continue screen)
 		move.b	#id_GameOverCard,(v_objspace+$80).w ; load GAME object
 		move.b	#id_GameOverCard,(v_objspace+$C0).w ; load OVER object
 		move.b	#1,(v_objspace+$C0+obFrame).w ; set OVER object to correct frame
 		clr.b	(f_timeover).w
 
 loc_138C2:
-;		music	bgm_GameOver,0,0,0	; play game over music
+		music	bgm_GameOver,0,0,0	; play game over music
 		moveq	#3,d0
 		jmp	(AddPLC).l	; load game over patterns
 ; ===========================================================================

@@ -8,13 +8,13 @@
 Sonic_Jump:
 		move.b	(v_jpadpress2).w,d0
 		andi.b	#btnABC,d0	; is A, B or C pressed?
-		beq.w	locret_1348F	; if not, branch
+		beq.w	locret_1348E	; if not, branch
 		moveq	#0,d0
 		move.b	obAngle(a0),d0
 		addi.b	#$80,d0
 		bsr.w	sub_14D48
 		cmpi.w	#6,d1
-		blt.w	locret_1348F
+		blt.w	locret_1348E
 		move.w	#$680,d2
 		btst	#6,obStatus(a0)
 		beq.s	loc_1341C
@@ -46,11 +46,8 @@ loc_1341C:
 		move.b    #id_Walk,obAnim(a0) 
 		bset	#2,obStatus(a0)
 		addq.w	#5,obY(a0)
-		cmpi.b	#btnABC,d0	; is A, B or C pressed?
-		bmi.w	locret_1348F	; if yes, branch
-;		move.b    #id_Roll,obAnim(a0) 
-		
-locret_1348F:
+
+locret_1348E:
 		rts	
 ; ===========================================================================
 

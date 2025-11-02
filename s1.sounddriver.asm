@@ -70,13 +70,13 @@ ptr_mus89:	dc.l Music89
 ptr_mus8A:	dc.l Music8A
 ptr_mus8B:	dc.l Music8B
 ptr_mus8C:	dc.l Music8C
-ptr_mus8D:	
-ptr_mus8E:	
-ptr_mus8F:	
-ptr_mus90:	
-ptr_mus91:	
-ptr_mus92:	
-ptr_mus93:	
+ptr_mus8D:	dc.l Music8D
+ptr_mus8E:	dc.l Music8E
+ptr_mus8F:	dc.l Music8F
+ptr_mus90:	dc.l Music90
+ptr_mus91:	dc.l Music91
+ptr_mus92:	dc.l Music92
+ptr_mus93:	dc.l Music93
 ptr_musend
 ; ---------------------------------------------------------------------------
 ; Priority of sound. New music or SFX must have a priority higher than or equal
@@ -2492,17 +2492,31 @@ Music85:	incbin	"sound/music/Mus85 - SYZ.bin"
 		even
 Music86:	incbin	"sound/music/Mus86 - SBZ.bin"
 		even
-Music87:	incbin	"sound/music/Mus90 - Continue Screen.bin" ; Sega Sound
+Music87:	incbin	"sound/music/Mus87 - Invincibility.bin"
 		even
-Music88:	incbin	"sound/music/Mus89 - Special Stage.bin"
+Music88:	incbin	"sound/music/Mus88 - Extra Life.bin"
 		even
-Music89:	incbin	"sound/music/Mus8C - Boss.bin"
+Music89:	incbin	"sound/music/Mus89 - Special Stage.bin"
 		even
-Music8A:	incbin	"sound/music/Mus8B - Ending.bin" ; Title Screen
+Music8A:	incbin	"sound/music/Mus8A - Title Screen.bin"
 		even
-Music8B:	incbin	"sound/music/Mus8E - Sonic Got Through.bin"
+Music8B:	incbin	"sound/music/Mus8B - Ending.bin"
 		even
-Music8C:	incbin	"sound/music/Mus8F - Game Over.bin"
+Music8C:	incbin	"sound/music/Mus8C - Boss.bin"
+		even
+Music8D:	incbin	"sound/music/Mus8D - FZ.bin"
+		even
+Music8E:	incbin	"sound/music/Mus8E - Sonic Got Through.bin"
+		even
+Music8F:	incbin	"sound/music/Mus8F - Game Over.bin"
+		even
+Music90:	incbin	"sound/music/Mus90 - Continue Screen.bin"
+		even
+Music91:	incbin	"sound/music/Mus91 - Credits.bin"
+		even
+Music92:	incbin	"sound/music/Mus92 - Drowning.bin"
+		even
+Music93:	incbin	"sound/music/Mus81 - GHZ.bin"
 		even
 ; ---------------------------------------------------------------------------
 ; Sound	effect pointers
@@ -2667,7 +2681,7 @@ SoundD0:	incbin	"sound/sfx/SndD0 - Waterfall.bin"
 		if (*&$7FFF)+Size_of_SegaPCM>$8000
 			align $8000
 		endif
-SegaPCM:	even
+SegaPCM:	incbin	"sound/dac/sega.pcm"
 SegaPCM_End
 		even
 

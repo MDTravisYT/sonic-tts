@@ -16,7 +16,7 @@ TSon_Index:	dc.w TSon_Main-TSon_Index
 
 TSon_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
-		move.w	#$F8,obX(a0)
+		move.w	#$F0,obX(a0)
 		move.w	#$DE,obScreenY(a0) ; position is fixed to screen
 		move.l	#Map_TSon,obMap(a0)
 		move.w	#$2300,obGfx(a0)

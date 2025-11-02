@@ -16,7 +16,7 @@ PSB_Index:	dc.w PSB_Main-PSB_Index
 
 PSB_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
-		move.w	#$D8,obX(a0)
+		move.w	#$D0,obX(a0)
 		move.w	#$130,obScreenY(a0)
 		move.l	#Map_PSB,obMap(a0)
 		move.w	#$200,obGfx(a0)

@@ -20,8 +20,6 @@ lamp_time:	equ $36		; length of time to twirl the lamp
 ; ===========================================================================
 
 Lamp_Main:	; Routine 0
-		move.b	d0,(v_lastlamp).w ; clear lamppost counter
-        move.b  #id_Sega,(v_gamemode).w
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Lamp,obMap(a0)
 		move.w	#$7A0,obGfx(a0)

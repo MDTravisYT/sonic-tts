@@ -21,7 +21,7 @@ Burro_Main:	; Routine 0
 		move.l	#Map_Burro,obMap(a0)
 		move.w	#$4A6,obGfx(a0)
 		ori.b	#4,obRender(a0)
-		move.b	#2,obPriority(a0)
+		move.b	#4,obPriority(a0)
 		move.b	#5,obColType(a0)
 		move.b	#$C,obActWid(a0)
 		addq.b	#6,ob2ndRout(a0) ; run "Burro_ChkSonic" routine
@@ -113,7 +113,6 @@ Burro_Jump:
 		move.w	#255,burro_timedelay(a0)
 		subq.b	#2,ob2ndRout(a0)
 		bsr.w	Burro_ChkSonic2
-;		music	$A4,0,0,0	; play jump sound
 
 locret_ADF0:
 		rts	

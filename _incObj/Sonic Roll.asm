@@ -32,15 +32,7 @@ Sonic_ChkRoll:
 ; ===========================================================================
 
 @roll:
-		bset	#2,obStatus(a0)
-		move.b	#$E,obHeight(a0)
-		move.b	#7,obWidth(a0)
-		move.b	#id_Roll,obAnim(a0) ; use "rolling" animation
-		addq.w	#5,obY(a0)
-;		sfx	$89,0,0,0	; play rolling sound
-		tst.w	obInertia(a0)
-		bne.s	@ismoving
-		move.w	#$200,obInertia(a0) ; set inertia if 0
+
 
 	@ismoving:
 		rts	

@@ -196,10 +196,37 @@ RLoss_Count:	; Routine 0
 		bne.w	@resetcounter
 
 @makerings:
-
+		move.b	#id_RingLoss,0(a1) ; load bouncing ring object
+		addq.b	#2,obRoutine(a1)
+		move.b	#8,obHeight(a1)
+		move.b	#8,obWidth(a1)
+		move.w	obX(a0),obX(a1)
+		move.w	obY(a0),obY(a1)
+		move.l	#Map_Ring,obMap(a1)
+		move.w	#$27B2,obGfx(a1)
+		move.b	#4,obRender(a1)
+		move.b	#3,obPriority(a1)
+		move.b	#$47,obColType(a1)
+		move.b	#8,obActWid(a1)
+		move.b	#-1,(v_ani3_time).w
+		tst.w	d4
+		bmi.s	@loc_9D62
+		move.w	d4,d0
+		bsr.w	CalcSine
+		move.w	d4,d2
+		lsr.w	#8,d2
+		asl.w	d2,d0
+		asl.w	d2,d1
+		move.w	d0,d2
+		move.w	d1,d3
+		addi.b	#$10,d4
+		bcc.s	@loc_9D62
+		subi.w	#$80,d4
+		bcc.s	@loc_9D62
+		move.w	#$288,d4
 
 	@loc_9D62:
-;		move.w	d2,obVelX(a1)
+		move.w	d2,obVelX(a1)
 		move.w	d3,obVelY(a1)
 		neg.w	d2
 		neg.w	d4
@@ -209,7 +236,7 @@ RLoss_Count:	; Routine 0
 		move.w	#0,(v_rings).w	; reset number of rings to zero
 		move.b	#$80,(f_ringcount).w ; update ring counter
 		move.b	#0,(v_lifecount).w
-;		sfx	sfx_RingLoss,0,0,0	; play ring loss sound
+		sfx	sfx_RingLoss,0,0,0	; play ring loss sound
 
 RLoss_Bounce:	; Routine 2
 		move.b	(v_ani3_frame).w,obFrame(a0)
@@ -220,7 +247,7 @@ RLoss_Bounce:	; Routine 2
 		add.b	d7,d0
 		andi.b	#3,d0
 		bne.s	@chkdel
-;		jsr	(ObjFloorDist).l
+		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	@chkdel
 		add.w	d1,obY(a0)

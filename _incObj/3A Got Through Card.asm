@@ -149,6 +149,7 @@ Got_NextLevel:	; Routine $A
 		move.w	d0,(v_zone).w	; set level number
 		tst.w	d0
 		bne.s	Got_ChkSS
+		move.b	#id_Sega,(v_gamemode).w
 		bra.s	Got_Display2
 ; ===========================================================================
 
@@ -218,14 +219,17 @@ Got_Config:	dc.w 4,		$124,	$BC			; "SONIC HAS"
 		dc.w -$120,	$120,	$D0			; "PASSED"
 		dc.b 				2,	1
 
-		dc.w $520,	$FFF,	$FFF			; score
+		dc.w $40C,	$14C,	$D6			; "ACT" 1/2/3
+		dc.b 				2,	6
+
+		dc.w $520,	$120,	$EC			; score
 		dc.b 				2,	2
 
-		dc.w $540,	$FFF,	$FFF			; time bonus
+		dc.w $540,	$120,	$FC			; time bonus
 		dc.b 				2,	3
 
-		dc.w $560,	$FFF,	$FFF			; ring bonus
+		dc.w $560,	$120,	$10C			; ring bonus
 		dc.b 				2,	4
 
-		dc.w $20C,	$FFF,	$FFF			; oval
+		dc.w $20C,	$14C,	$CC			; oval
 		dc.b 				2,	5

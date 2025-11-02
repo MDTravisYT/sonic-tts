@@ -206,8 +206,8 @@ Drown_Countdown:; Routine $A
 		cmpi.w	#12,d0
 		bhi.s	@reduceair	; if air is above 12, branch
 
-;		bne.s	@skipmusic	; if air is less than 12, branch
-;		music	$82,0,0,0	; play countdown music
+		bne.s	@skipmusic	; if air is less than 12, branch
+		music	bgm_Drowning,0,0,0	; play countdown music
 
 	@skipmusic:
 		subq.b	#1,$32(a0)
@@ -218,24 +218,23 @@ Drown_Countdown:; Routine $A
 ; ===========================================================================
 
 @warnsound:
-		sfx	$00,0,0,0	; play "ding-ding" warning sound
+		sfx	sfx_Warning,0,0,0	; play "ding-ding" warning sound
 
 @reduceair:
 		subq.w	#1,(v_air).w	; subtract 1 from air remaining
 		bcc.w	@gotomakenum	; if air is above 0, branch
 
 		; Sonic drowns here
-		rts
 		bsr.w	ResumeMusic
 		move.b	#$81,(f_lockmulti).w ; lock controls
-		sfx	sfx_Death,0,0,0	; play drowning sound
+		sfx	sfx_Drown,0,0,0	; play drowning sound
 		move.b	#$A,$34(a0)
 		move.w	#1,$36(a0)
 		move.w	#$78,$2C(a0)
 		move.l	a0,-(sp)
 		lea	(v_player).w,a0
 		bsr.w	Sonic_ResetOnFloor
-		move.b	#id_drown,obAnim(a0)	; use Sonic's drowning animation
+		move.b	#id_Drown,obAnim(a0)	; use Sonic's drowning animation
 		bset	#1,obStatus(a0)
 		bset	#7,obGfx(a0)
 		move.w	#0,obVelY(a0)
@@ -257,7 +256,7 @@ Drown_Countdown:; Routine $A
 		move.l	a0,-(sp)
 		lea	(v_player).w,a0
 		jsr	(SpeedToPos).l
-		addi.w	#$38,obVelY(a0)
+		addi.w	#$10,obVelY(a0)
 		movea.l	(sp)+,a0
 		bra.s	@nochange
 ; ===========================================================================
@@ -278,7 +277,7 @@ Drown_Countdown:; Routine $A
 		move.w	d0,$3A(a0)
 		jsr	(FindFreeObj).l
 		bne.w	@nocountdown
-;		move.b	#id_DrownCount,0(a1) ; load object
+		move.b	#id_DrownCount,0(a1) ; load object
 		move.w	(v_player+obX).w,obX(a1) ; match X position to Sonic
 		moveq	#6,d0
 		btst	#0,(v_player+obStatus).w

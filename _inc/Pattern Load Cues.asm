@@ -81,8 +81,8 @@ PLC_GameOver:	dc.w ((PLC_GameOverend-PLC_GameOver-2)/6)-1
 PLC_GHZ:	dc.w ((PLC_GHZ2-PLC_GHZ-2)/6)-1
 		plcm	Nem_GHZ, 0		; GHZ main patterns
 	;	plcm	Nem_Stalk, $6B00	; flower stalk
-		plcm	Nem_Burrobot, $94C0	; blue guy
-		plcm	Nem_Crabmeat, $8840 ; crabmeat enemy
+		plcm	Nem_Burrobot, $94C0	; burrobot enemy
+	;	plcm	Nem_Crabmeat, $8000	; crabmeat enemy
 	;	plcm	Nem_Buzz, $8880		; buzz bomber enemy
 	;	plcm	Nem_Chopper, $8F60	; chopper enemy
 	;	plcm	Nem_Newtron, $9360	; newtron enemy
@@ -92,13 +92,13 @@ PLC_GHZ:	dc.w ((PLC_GHZ2-PLC_GHZ-2)/6)-1
 	;	plcm	Nem_VSpring, $A660	; vertical spring
 
 PLC_GHZ2:	dc.w ((PLC_GHZ2end-PLC_GHZ2-2)/6)-1
-		plcm	Nem_Pylon, $7980	; foreground trees and stuff
 ;		plcm	Nem_Swing, $7000	; swinging platform
 ;		plcm	Nem_Bridge, $71C0	; bridge
 ;		plcm	Nem_SpikePole, $7300	; spiked pole
 ;		plcm	Nem_Ball, $7540		; giant	ball
 ;		plcm	Nem_GhzWall1, $A1E0	; breakable wall
 ;		plcm	Nem_GhzWall2, $6980	; normal wall
+		plcm	Nem_PplRock, $6A00	; purple rock
 	PLC_GHZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Labyrinth
@@ -344,24 +344,24 @@ PLC_SSResult:dc.w ((PLC_SpeStResultend-PLC_SSResult-2)/6)-1
 ; Pattern load cues - ending sequence
 ; ---------------------------------------------------------------------------
 PLC_Ending:	dc.w ((PLC_Endingend-PLC_Ending-2)/6)-1
-		plcm	Nem_GHZ, 0		; GHZ main patterns
-		plcm	Nem_PplRock, $7A00	; purple rock
-	;	plcm	Nem_Stalk, $6B00	; flower stalk
-	;	plcm	Nem_EndFlower, $7400	; flowers
-	;	plcm	Nem_EndEm, $78A0	; emeralds
-	;	plcm	Nem_EndSonic, $7C20	; Sonic
+		plcm	Nem_GHZ_1st,0		; GHZ main patterns
+		plcm	Nem_GHZ_2nd, $39A0	; GHZ secondary	patterns
+		plcm	Nem_Stalk, $6B00	; flower stalk
+		plcm	Nem_EndFlower, $7400	; flowers
+		plcm	Nem_EndEm, $78A0	; emeralds
+		plcm	Nem_EndSonic, $7C20	; Sonic
 		if Revision=0
-	;	plcm	Nem_EndEggman, $A480	; Eggman's death ((unused)
+		plcm	Nem_EndEggman, $A480	; Eggman's death ((unused)
 		else
 		endc
-	;	plcm	Nem_Rabbit, $AA60	; rabbit
-	;	plcm	Nem_Chicken, $ACA0	; chicken
-	;	plcm	Nem_BlackBird, $AE60	; blackbird
-	;	plcm	Nem_Seal, $B0A0		; seal
-	;	plcm	Nem_Pig, $B260		; pig
-	;	plcm	Nem_Flicky, $B4A0	; flicky
-	;	plcm	Nem_Squirrel, $B660	; squirrel
-	;	plcm	Nem_EndStH, $B8A0	; "SONIC THE HEDGEHOG"
+		plcm	Nem_Rabbit, $AA60	; rabbit
+		plcm	Nem_Chicken, $ACA0	; chicken
+		plcm	Nem_BlackBird, $AE60	; blackbird
+		plcm	Nem_Seal, $B0A0		; seal
+		plcm	Nem_Pig, $B260		; pig
+		plcm	Nem_Flicky, $B4A0	; flicky
+		plcm	Nem_Squirrel, $B660	; squirrel
+		plcm	Nem_EndStH, $B8A0	; "SONIC THE HEDGEHOG"
 	PLC_Endingend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - "TRY AGAIN" and "END" screens

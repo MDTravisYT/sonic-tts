@@ -222,7 +222,7 @@ Obj09_Jump:
 		asr.l	#8,d0
 		move.w	d0,obVelY(a0)
 		bset	#1,obStatus(a0)
-;		sfx	sfx_Jump,0,0,0	; play jumping sound
+		sfx	sfx_Jump,0,0,0	; play jumping sound
 
 Obj09_NoJump:
 		rts	
@@ -280,23 +280,23 @@ locret_1BBDE:
 ; ===========================================================================
 
 Obj09_ExitStage:
-;		addi.w	#$40,(v_ssrotate).w
-;		cmpi.w	#$1800,(v_ssrotate).w
+		addi.w	#$40,(v_ssrotate).w
+		cmpi.w	#$1800,(v_ssrotate).w
 		bne.s	loc_1BBF4
 		move.b	#id_Level,(v_gamemode).w
 
 loc_1BBF4:
-;		cmpi.w	#$3000,(v_ssrotate).w
+		cmpi.w	#$3000,(v_ssrotate).w
 		blt.s	loc_1BC12
-;		move.w	#0,(v_ssrotate).w
-;		move.w	#$4000,(v_ssangle).w
+		move.w	#0,(v_ssrotate).w
+		move.w	#$4000,(v_ssangle).w
 		addq.b	#2,obRoutine(a0)
 		move.w	#$3C,$38(a0)
 
 loc_1BC12:
-;		move.w	(v_ssangle).w,d0
-;		add.w	(v_ssrotate).w,d0
-;		move.w	d0,(v_ssangle).w
+		move.w	(v_ssangle).w,d0
+		add.w	(v_ssrotate).w,d0
+		move.w	d0,(v_ssangle).w
 		jsr	(Sonic_Animate).l
 		jsr	(Sonic_LoadGfx).l
 		bsr.w	SS_FixCamera

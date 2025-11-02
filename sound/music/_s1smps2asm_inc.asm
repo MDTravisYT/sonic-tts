@@ -383,3 +383,15 @@ vcTL4 set op4
 	dc.b	(vcDL4<<4)+vcRR4,(vcDL3<<4)+vcRR3,(vcDL2<<4)+vcRR2,(vcDL1<<4)+vcRR1
 	dc.b	vcTL4,vcTL3,vcTL2,vcTL1	
 	endm
+
+; Header - Set up a secondary PWM Channel
+smpsHeaderPWM macro loc
+	dc.w	loc-songStart
+	endm
+	
+; Header - Set up first PWM Channel
+smpsHeaderPWM1 macro loc,num
+	dc.w	loc-songStart
+	dc.b	num,0
+	endm
+	
