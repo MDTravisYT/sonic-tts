@@ -129,17 +129,12 @@ SRAMSupport:	if EnableSRAM=1
 		endc
 		dc.l $20202020		; SRAM start ($200001)
 		dc.l $20202020		; SRAM end ($20xxxx)
-Notes:		dc.b "Sonic 1 TTS Remake v0.6.3 By MDTravus & CaioST      " ; Notes (unused, anything can be put in this space, but it has to be 52 bytes.)
+Notes:		dc.b "Sonic 1 TTS Remake v0.6.2 By MCTravisYT & CaioST    " ; Notes (unused, anything can be put in this space, but it has to be 52 bytes.)
 Region:		dc.b "J               " ; Region (Country code)
 EndOfHeader:
 
 ; ===========================================================================
 ; Crash/Freeze the 68000. Unlike Sonic 2, Sonic 1 uses the 68000 for playing music, so it stops too
-
-	dc.b "Hello researchers! If you're looking into this, this is here just to say this is NOT the true demo!"
-	dc.b "For you people that share this around saying it's the real deal, don't."
-	dc.b "0.6.3 is an updated, unreleased revision of my old TTS remake." 
-	dc.b "I don't plan on updating it any further from this."
 
 ErrorTrap:
 		nop	
@@ -1879,7 +1874,7 @@ GM_Sega:
         move.w  #$8174,$C00004          ; enable display
 ;        bsr.w   PaletteFadeIn
         sfx bgm_Invincible,0,1,1          ; play "SEGA" sound
-        move.w  #10*35,(v_demolength).w      ; stay for 3 seconds
+        move.w  #10*30,(v_demolength).w      ; stay for 3 seconds
  
 Sega_WaitEnd:
         move.b  #2,(v_vbla_routine).w
@@ -1892,8 +1887,6 @@ Sega_WaitEnd:
         beq.s   Sega_WaitEnd            ; if not, branch
  
 Sega_GotoTitle:
-		sfx	bgm_Stop,0,1,1 ; stop music
-		bsr.w	SoundDriverLoad
 		sfx	bgm_Fade,0,1,1 ; fade out music
         move.b  #id_Title,(v_gamemode).w
         rts
@@ -1901,8 +1894,8 @@ Sega_GotoTitle:
 Palcycle_Sega:
         subq.w  #1,v_pcyc_time
         bne.s   @return
-        move.w  #3,v_pcyc_time	; speed time
-        addq.w  #2,v_pcyc_num	; 
+        move.w  #3,v_pcyc_time
+        addq.w  #2,v_pcyc_num
         cmpi.w  #@cycle_size,v_pcyc_num     ; past cycle's size?
         bne.s   @jmp0               ; if not, branch
         move.w  #0,v_pcyc_num           ; if yes, reset
@@ -1914,9 +1907,10 @@ Palcycle_Sega:
         move.w  (a0),(a1)           ; copy last color
 @return:    rts
  
-@cycle:     
-        dc.w    $EC0, $EA0, $E80, $E60, $E40, $E20, $E00, $C00, $A00
-        dc.w    $800, $A00, $C00, $E00, $E20, $E40, $E60, $E80, $EA0
+@cycle:     dc.w    $EC0
+        dc.w    $EA0, $E80, $E60, $E40, $E20, $E00
+        dc.w    $C00
+        dc.w    $E00, $E20, $E40, $E60, $E80, $EA0
 @cycle_end: ; remaining half copy before loop. Making it CPU-friendly
         dc.w    $EC0
         dc.w    $EA0, $E80, $E60, $E40, $E20, $E00
@@ -1929,11 +1923,11 @@ Palcycle_Sega:
 ; ---------------------------------------------------------------------------
 
 GM_Title:
-		sfx	bgm_Stop,0,1,1 ; stop music
+;		sfx	bgm_Stop,0,1,1 ; stop music
 		bsr.w	ClearPLC
 ;		bsr.w	PaletteFadeOut
 		disable_ints
-		bsr.w	SoundDriverLoad
+;		bsr.w	SoundDriverLoad
 		lea	(vdp_control_port).l,a6
 		move.w	#$8004,(a6)	; 8-colour mode
 		move.w	#$8200+(vram_fg>>10),(a6) ; set foreground nametable address
@@ -2151,6 +2145,8 @@ loc_3230:
 Tit_ChkLevSel:
 		tst.b	(f_levselcheat).w ; check if level select code is on
 		beq.w	PlayLevel	; if not, play level
+		btst	#bitA,(v_jpadhold1).w ; check if A is pressed
+		beq.w	PlayLevel	; if not, play level
 
 		moveq	#palid_LevelSel,d0
 		bsr.w	PalLoad2	; load level select palette
@@ -2190,7 +2186,7 @@ LevelSelect:
 		andi.b	#btnABC+btnStart,(v_jpadpress1).w ; is A, B, C, or Start pressed?
 		beq.s	LevelSelect	; if not, branch
 		move.w	(v_levselitem).w,d0
-		cmpi.w	#$13,d0		; have you selected item $14 (sound test)?
+		cmpi.w	#$14,d0		; have you selected item $14 (sound test)?
 		bne.s	LevSel_Level_SS	; if not, go to	Level/SS subroutine
 		move.w	(v_levselsound).w,d0
 		addi.w	#$80,d0
@@ -2417,7 +2413,7 @@ LevSel_Refresh:
 ; ===========================================================================
 
 LevSel_SndTest:
-		cmpi.w	#$13,(v_levselitem).w ; is item $14 selected?
+		cmpi.w	#$14,(v_levselitem).w ; is item $14 selected?
 		bne.s	LevSel_NoMove	; if not, branch
 		move.b	(v_jpadpress1).w,d1
 		andi.b	#btnR+btnL,d1	; is left/right	pressed?

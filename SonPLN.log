@@ -1,15 +1,16 @@
 Operating system: Microsoft Windows NT 6.2.9200.0
-Opening INI file "D:\Disassembly\BetaSonic in Sonic 1\v0.6.3 Source\SonPLN.ini"...
+Opening INI file "D:\Disassembly\BetaSonic in Sonic 1\v0.6.1 Source\SonPLN.ini"...
+Opening INI file "D:\Disassembly\BetaSonic in Sonic 1\v0.6.1 Source\SonPLN.ini"...
+Opening INI file "D:\Disassembly\BetaSonic in Sonic 1\v0.6.1 Source\SonPLN.ini"...
 Game type is S1.
-Loading Title Screen Logo...
-Loading palette file "pallet/title.bin"...
-Source: 0 Destination: 0 Length: 16
-Loading plane mappings from file "tilemaps/Title Screen.bin", using compression Enigma...
-Loading dummy tile data.
-Loading 8x8 tiles from file "artnem/Title Screen Foreground.bin", using compression Nemesis...
-Mappings data size does not match given width/height. Expected: 1904 (34x28*2) Actual: 1496.
-System.AggregateException: One or more errors occurred. ---> System.IO.FileNotFoundException: Palette file could not be loaded! Have you set up your disassembly properly?
-   at SonicRetro.SonLVL.SonPLN.MainForm.LoadLevelPalette() in E:\Programs\SonLVL\SonPLN\MainForm.cs:line 440
+Loading Sega Logo...
+Loading plane mappings from file "tilemaps/Sega Logo.bin", using compression Enigma...
+Loading palette file "palette/Sonic - Copy.bin"...
+Source: 16 Destination: 0 Length: 64
+Loading 8x8 tiles from file "artnem/Sega Logo.bin", using compression Nemesis...
+Mappings data size does not match given width/height. Expected: 2240 (40x28*2) Actual: 96.
+System.AggregateException: One or more errors occurred. ---> System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at SonicRetro.SonLVL.SonPLN.MainForm.LoadLevelPalette() in E:\Programs\SonLVL\SonPLN\MainForm.cs:line 421
    at System.Threading.Tasks.Task.InnerInvoke()
    at System.Threading.Tasks.Task.Execute()
    --- End of inner exception stack trace ---
@@ -17,9 +18,30 @@ System.AggregateException: One or more errors occurred. ---> System.IO.FileNotFo
    at System.Threading.Tasks.Parallel.Invoke(ParallelOptions parallelOptions, Action[] actions)
    at System.Threading.Tasks.Parallel.Invoke(Action[] actions)
    at SonicRetro.SonLVL.SonPLN.MainForm.backgroundLevelLoader_DoWork(Object sender, DoWorkEventArgs e) in E:\Programs\SonLVL\SonPLN\MainForm.cs:line 321
----> (Inner Exception #0) System.IO.FileNotFoundException: Palette file could not be loaded! Have you set up your disassembly properly?
-File name: 'pallet/title.bin'
-   at SonicRetro.SonLVL.SonPLN.MainForm.LoadLevelPalette() in E:\Programs\SonLVL\SonPLN\MainForm.cs:line 440
+---> (Inner Exception #0) System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at SonicRetro.SonLVL.SonPLN.MainForm.LoadLevelPalette() in E:\Programs\SonLVL\SonPLN\MainForm.cs:line 421
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()<---
+
+Opening INI file "D:\Disassembly\BetaSonic in Sonic 1\v0.6.1 Source\SonPLN.ini"...
+Game type is S1.
+Loading Sega Logo...
+Loading plane mappings from file "tilemaps/Sega Logo.bin", using compression Enigma...
+Loading palette file "palette/Sonic - Copy.bin"...
+Source: 16 Destination: 0 Length: 16
+Loading 8x8 tiles from file "artnem/Sega Logo.bin", using compression Nemesis...
+Mappings data size does not match given width/height. Expected: 2240 (40x28*2) Actual: 96.
+System.AggregateException: One or more errors occurred. ---> System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at SonicRetro.SonLVL.SonPLN.MainForm.LoadLevelPalette() in E:\Programs\SonLVL\SonPLN\MainForm.cs:line 421
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.FastWaitAll(Task[] tasks)
+   at System.Threading.Tasks.Parallel.Invoke(ParallelOptions parallelOptions, Action[] actions)
+   at System.Threading.Tasks.Parallel.Invoke(Action[] actions)
+   at SonicRetro.SonLVL.SonPLN.MainForm.backgroundLevelLoader_DoWork(Object sender, DoWorkEventArgs e) in E:\Programs\SonLVL\SonPLN\MainForm.cs:line 321
+---> (Inner Exception #0) System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at SonicRetro.SonLVL.SonPLN.MainForm.LoadLevelPalette() in E:\Programs\SonLVL\SonPLN\MainForm.cs:line 421
    at System.Threading.Tasks.Task.InnerInvoke()
    at System.Threading.Tasks.Task.Execute()<---
 

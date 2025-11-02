@@ -2492,7 +2492,7 @@ Music85:	incbin	"sound/music/Mus85 - SYZ.bin"
 		even
 Music86:	incbin	"sound/music/Mus86 - SBZ.bin"
 		even
-Music87:	incbin	"sound/music/prelude.bin" ; Sega Sound
+Music87:	incbin	"sound/music/Mus90 - Continue Screen.bin" ; Sega Sound
 		even
 Music88:	incbin	"sound/music/Mus89 - Special Stage.bin"
 		even

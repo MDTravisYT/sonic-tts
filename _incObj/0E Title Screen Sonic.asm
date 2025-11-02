@@ -21,7 +21,7 @@ TSon_Main:	; Routine 0
 		move.l	#Map_TSon,obMap(a0)
 		move.w	#$2300,obGfx(a0)
 		move.b	#1,obPriority(a0)
-		move.b	#0,obDelayAni(a0) ; set time delay to 0.5 seconds
+		move.b	#29,obDelayAni(a0) ; set time delay to 0.5 seconds
 		lea	(Ani_TSon).l,a1
 		bsr.w	AnimateSprite
 
